@@ -1,0 +1,47 @@
+# Byte-compiled / optimized / compiled files
+__pycache__/
+*.pyc
+*.pyd
+*.pyo
+*.egg-info/
+.pytest_cache/
+
+# Virtual environment
+venv/
+.venv/
+env/
+.env/
+.env
+
+# Editor-specific files
+.vscode/
+.idea/
+*.swp
+*~
+*.bak
+*.swo
+
+# Project-specific files
+# Database files
+*.sqlite3
+*.db
+
+# Log files
+*.log
+
+# Uploaded files
+media/
+static_collected/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Jupyter Notebook files
+.ipynb_checkpoints/
+
+# Miscellaneous
+dist/
+build/
+*.egg
+*.whl
