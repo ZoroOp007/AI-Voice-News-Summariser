@@ -1,5 +1,7 @@
 <h1>A fullstack AI based News Summarizer.</h1>
 
+<img src="https://github.com/ZoroOp007/AI-Voice-News-Summariser/blob/main/frontend/data/F_427257591_ZVlbJrYL0wZdSahm9kCX1zxYGtjwMSsl.jpg" placeholder="frontend Image"/>
+
 <h3>How it works ??</h3>
 
 <ol>
