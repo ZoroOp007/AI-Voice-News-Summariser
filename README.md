@@ -1,0 +1,20 @@
+<h1>A fullstack AI based News Summarizer.</h1>
+
+<h3>How it works ??</h3>
+
+<ol>
+
+  <li> User enters topics he is interested in and source where he want news from ( Reddit ,Google News or Both )</li>
+  <li> Agent scrape data using bright data from Google News and Reddit.</li>
+  <li> First html response is parsed in simple text using beautifulsoup.</li>
+  <li> Then this response is again sent a LLM to summarizer in such a way that essence of the news remains same.</li>
+  <li> Then the textual response is convered into audio format using gtts and Elevenlabs.</li>
+</ol>
+
+
+<h3> Technology Used </h3>
+
+Backend :: FastAPI
+Frontend :: Streamlit
+AI Framework :: Langchain , Langgraph
+LLM platform :: Groq API 
