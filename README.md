@@ -16,7 +16,13 @@
 
 <h3> Technology Used </h3>
 
-Backend :: FastAPI
-Frontend :: Streamlit
-AI Framework :: Langchain , Langgraph
-LLM platform :: Groq API 
+<ul>
+
+  <li>Backend :: FastAPI</li>
+  <li>Frontend :: Streamlit</li>
+  <li>AI Framework :: Langchain , Langgraph</li>
+  <li>LLM platform :: Groq API </li>
+</ul>
+
+
+
