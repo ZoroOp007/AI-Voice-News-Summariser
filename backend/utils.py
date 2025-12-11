@@ -5,7 +5,8 @@ import os
 from fastapi import FastAPI, HTTPException
 from bs4 import BeautifulSoup
 import ollama
-from langchain_anthropic import ChatAnthropic
+
+from langchain_groq import ChatGroq
 from langchain_core.messages import SystemMessage, HumanMessage
 from datetime import datetime
 from elevenlabs import ElevenLabs
@@ -43,12 +44,12 @@ def generate_news_urls_to_scrape(list_of_keywords):
 def scrape_with_brightdata(url: str) -> str:
     """Scrape a URL using BrightData"""
     headers = {
-        "Authorization": f"Bearer {os.getenv('BRIGHTDATA_API_KEY')}",
+        "Authorization": f"Bearer {os.getenv('BRIGHTDATA_API_TOKEN')}",
         "Content-Type": "application/json"
     }
 
     payload = {
-        "zone": os.getenv('BRIGHTDATA_WEB_UNLOCKER_ZONE'),
+        "zone": os.getenv('WEB_UNLOCKER_ZONE'),
         "url": url,
         "format": "raw"
     }
@@ -159,23 +160,32 @@ def generate_broadcast_news(api_key, news_data, reddit_data, topics):
                 context.append(f"OFFICIAL NEWS CONTENT:\n{news_content}")
             if reddit_content:
                 context.append(f"REDDIT DISCUSSION CONTENT:\n{reddit_content}")
+
             
             if context:  # Only include topics with actual content
                 topic_blocks.append(
                     f"TOPIC: {topic}\n\n" +
                     "\n\n".join(context)
                 )
+            
+            print("Hello Awaj aa rhi h")
+            print(context)
 
         user_prompt = (
             "Create broadcast segments for these topics using available sources:\n\n" +
             "\n\n--- NEW TOPIC ---\n\n".join(topic_blocks)
         )
 
-        llm = ChatAnthropic(
-            model="claude-3-opus-20240229",
-            api_key=api_key,
-            temperature=0.3,
-            max_tokens=4000,
+
+        llm = ChatGroq(
+            groq_api_key=os.getenv("GROQ_API_KEY"),
+            model="openai/gpt-oss-120b",
+            temperature=0,
+            max_tokens=None,
+            reasoning_format="parsed",
+            timeout=None,
+            max_retries=2,
+            # other params...
         )
 
         response = llm.invoke([
@@ -208,8 +218,8 @@ Remember: Your only output should be a clean script that is ready to be read out
 """
 
     try:
-        llm = ChatAnthropic(
-            model="claude-3-opus-20240229",  # Or claude-3-sonnet for faster/lower-cost runs
+        llm = ChatGroq(
+            model="openai/gpt-oss-120b",  # Or claude-3-sonnet for faster/lower-cost runs
             api_key=api_key,
             temperature=0.4,
             max_tokens=1000
@@ -273,8 +283,11 @@ def text_to_audio_elevenlabs_sdk(
     except Exception as e:
         raise e
 
+
+
 from pathlib import Path
 from gtts import gTTS
+
 AUDIO_DIR = Path("audio")
 AUDIO_DIR.mkdir(exist_ok=True)  # Create directory if it doesn't exist
 def tts_to_audio(text: str, language: str = 'en') -> str:
